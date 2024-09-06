@@ -38,16 +38,16 @@ class TeXViewState extends State<TeXView> {
                       : false,
                   child: widget.loadingWidgetBuilder?.call(context) ??
                       const SizedBox.shrink()),
-          //               Positioned.fill(
-          //     child: PointerInterceptor(
-          // intercepting: widget.usePointerInterCeptor,
+                        Positioned.fill(
+              child: PointerInterceptor(
+          intercepting: widget.usePointerInterCeptor,
                    
-          //         child: const MouseRegion
-          //         (
-          //           opaque: true,
-          //           child: SizedBox(height: 300,width: 300,)),
-          //       ),
-          //   )
+                  child: const MouseRegion
+                  (
+                    opaque: true,
+                    child: SizedBox(height: 300,width: 300,)),
+                ),
+            )
             ],
           );
         });
