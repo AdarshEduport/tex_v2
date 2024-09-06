@@ -37,7 +37,17 @@ class TeXViewState extends State<TeXView> {
                           : false
                       : false,
                   child: widget.loadingWidgetBuilder?.call(context) ??
-                      const SizedBox.shrink())
+                      const SizedBox.shrink()),
+                        Positioned.fill(
+              child: PointerInterceptor(
+                  debug: true,
+                   
+                  child: MouseRegion
+                  (
+                    opaque: true,
+                    child: SizedBox(height: 300,width: 300,)),
+                ),
+            )
             ],
           );
         });
@@ -83,5 +93,90 @@ class TeXViewState extends State<TeXView> {
       ]);
       _lastData = getRawData(widget);
     }
+  }
+}
+
+const String _viewType = '__webPointerInterceptorViewType__';
+const String _debug = 'debug__';
+
+// Computes a "view type" for different configurations of the widget.
+String _getViewType({bool debug = false}) {
+  return debug ? _viewType + _debug : _viewType;
+}
+
+// Registers a viewFactory for this widget.
+void _registerFactory({bool debug = false}) {
+  final String viewType = _getViewType(debug: debug);
+  // ignore: undefined_prefixed_name
+  ui.platformViewRegistry.registerViewFactory(viewType, (int viewId) {
+    final html.Element htmlElement = html.DivElement()
+      ..style.width = '100%'
+      ..style.height = '100%';
+    if (debug) {
+      htmlElement.style.backgroundColor = 'rgba(255, 0, 0, .5)';
+    }
+    return htmlElement;
+  },);
+}
+
+/// The web implementation of the `PointerInterceptor` widget.
+///
+/// A `Widget` that prevents clicks from being swallowed by [HtmlElementView]s.
+class PointerInterceptor extends StatelessWidget {
+  /// Creates a PointerInterceptor for the web.
+  PointerInterceptor({
+    required this.child,
+    this.intercepting = true,
+    this.debug = false,
+    super.key,
+  }) {
+    if (!_registered) {
+      _register();
+    }
+  }
+
+  /// The `Widget` that is being wrapped by this `PointerInterceptor`.
+  final Widget child;
+
+  /// Whether or not this `PointerInterceptor` should intercept pointer events.
+  final bool intercepting;
+
+  /// When true, the widget renders with a semi-transparent red background, for debug purposes.
+  ///
+  /// This is useful when rendering this as a "layout" widget, like the root child
+  /// of a [Drawer].
+  final bool debug;
+
+  // Keeps track if this widget has already registered its view factories or not.
+  static bool _registered = false;
+
+  // Registers the view factories for the interceptor widgets.
+  static void _register() {
+    assert(!_registered);
+
+    _registerFactory();
+    _registerFactory(debug: true);
+
+    _registered = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!intercepting) {
+      return child;
+    }
+
+    final String viewType = _getViewType(debug: debug);
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Positioned.fill(
+          child: HtmlElementView(
+            viewType: viewType,
+          ),
+        ),
+        child,
+      ],
+    );
   }
 }
