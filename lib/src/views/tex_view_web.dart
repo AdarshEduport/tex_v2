@@ -24,7 +24,7 @@ class TeXViewState extends State<TeXView> {
           return Stack(
             children: [
               SizedBox(
-                height:widget.height?? _height.value,
+                height:(widget.height??0)> _height.value?widget.height:_height.value,
                 child: HtmlElementView(
                   key: widget.key ?? ValueKey(_viewId),
                   viewType: _viewId,
