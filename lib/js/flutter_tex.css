@@ -8,6 +8,10 @@
     position: relative;
 }
 
+body {
+    overflow: hidden; /* Hide scrollbars */
+  }
+
 .tex-view-ink-well .ripple {
     border-radius: 50%;
     background-color: lightgrey;
