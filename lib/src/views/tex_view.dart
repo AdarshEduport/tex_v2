@@ -25,12 +25,13 @@ class TeXView extends StatefulWidget {
 
   /// Callback when TEX rendering finishes.
   final Function(double height)? onRenderFinished;
+  final double ? height; 
 
   const TeXView({
     Key? key,
     required this.child,
     this.fonts,
-    // this.height = 500,
+    this.height ,
     this.style,
     this.loadingWidgetBuilder,
     this.onRenderFinished,
