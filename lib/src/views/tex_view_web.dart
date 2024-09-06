@@ -40,9 +40,9 @@ class TeXViewState extends State<TeXView> {
                       const SizedBox.shrink()),
                         Positioned.fill(
               child: PointerInterceptor(
-          
+          intercepting: widget.usePointerInterCeptor,
                    
-                  child: MouseRegion
+                  child: const MouseRegion
                   (
                     opaque: true,
                     child: SizedBox(height: 300,width: 300,)),

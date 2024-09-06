@@ -11,6 +11,8 @@ class TeXView extends StatefulWidget {
   /// Style TeXView Widget with [TeXViewStyle].
   final TeXViewStyle? style;
 
+  final bool usePointerInterCeptor;
+
   /// TeXView height (Only for Web)
   //final double? height;
 
@@ -29,6 +31,7 @@ class TeXView extends StatefulWidget {
 
   const TeXView({
     Key? key,
+    this.usePointerInterCeptor =true,
     required this.child,
     this.fonts,
     this.height ,
