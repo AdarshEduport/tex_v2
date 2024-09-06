@@ -40,7 +40,7 @@ class TeXViewState extends State<TeXView> {
                       const SizedBox.shrink()),
                         Positioned.fill(
               child: PointerInterceptor(
-                  debug: true,
+          
                    
                   child: MouseRegion
                   (
