@@ -3,13 +3,13 @@
 import 'dart:html' as html;
 import 'dart:js' as js;
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_tex/flutter_tex.dart';
 import 'package:flutter_tex/src/utils/core_utils.dart';
 import 'package:flutter_tex/src/utils/fake_ui.dart'
     if (dart.library.html) 'dart:ui' as ui;
   final ValueNotifier<double> _height = ValueNotifier<double>(minHeight);
-    final ValueNotifier<bool> _isRendering = ValueNotifier<bool>(false);
+
 class TeXViewState extends State<TeXView> {
   String? _lastData;
 
@@ -38,16 +38,16 @@ class TeXViewState extends State<TeXView> {
                       : false,
                   child: widget.loadingWidgetBuilder?.call(context) ??
                       const SizedBox.shrink()),
-                        Positioned.fill(
-              child: PointerInterceptor(
-          intercepting: widget.usePointerInterCeptor,
+          //               Positioned.fill(
+          //     child: PointerInterceptor(
+          // intercepting: widget.usePointerInterCeptor,
                    
-                  child: const MouseRegion
-                  (
-                    opaque: true,
-                    child: SizedBox(height: 300,width: 300,)),
-                ),
-            )
+          //         child: const MouseRegion
+          //         (
+          //           opaque: true,
+          //           child: SizedBox(height: 300,width: 300,)),
+          //       ),
+          //   )
             ],
           );
         });
